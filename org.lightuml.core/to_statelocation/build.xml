@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!-- ======================================================================
+	 Ant buildfile for LightUML plug-in. 
+     
+     (C) Copyright 2005 Antti Hakala
+ 
+     Permission to use, copy, and distribute this software and its documentation 
+     for any purpose and without fee is hereby granted, provided that the above 
+     copyright notice appear in all copies and that both that copyright notice and 
+     this permission notice appear in supporting documentation.
+    
+     THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES,
+     INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTIBILITY AND
+     FITNESS FOR A PARTICULAR PURPOSE. 
+     ====================================================================== -->
+
+<project name="lightuml.buildfile" default="java-to-dot" basedir=".">
+    <description>
+    	This ant buildfile is for running the UmlGraph doclet
+    	and GraphViz dot-tool.
+    </description>
+	
+	<!-- Set the properties in the property file graph.ini-->
+	<property file="graph.ini" />
+	
+	<!--get ${statelocation} from location of antfile -->
+	<dirname property="statelocation" file="${ant.file}"/>
+	
+	<!-- Check if path for Javadoc executable is set -->
+	<target name="check-javadoc">
+		<condition property="javadoc-set" value="true">
+			<length string="${javadoc-executable-path}" trim="true" when="greater" length="0"/>
+		</condition>
+	</target>
+	
+	<!-- Check if UMLGraph-2.10 is used -->
+	<target name="check-umlgraph">
+		<condition property="umlgraph-2.10" value="true">
+			<equals arg1="${umlgraph-doclet-name}" arg2="UmlGraph"/>
+		</condition>
+	</target>
+	
+	<!-- Run the UMLGraph doclet using default Javadoc executable. -->
+	<target name="run-umlgraph-with-default-javadoc" unless="javadoc-set" depends="check-javadoc">
+		<javadoc
+			docletpath="${umlgraph-jar-path}" 
+			access="${javadoc-access-level}"
+			useexternalfile="yes"
+			additionalparam="${umlgraph-extra-param}"
+			failonerror="true">
+					
+			<doclet name="${umlgraph-doclet-name}">
+				<param name="${umlgraph-output-param-name}" value="${umlgraph-output-param-value}"/>
+			</doclet>
+
+			<fileset dir="${source-path}">
+				<include name="${scope}"/>
+			</fileset>
+		</javadoc>		
+	</target>
+	
+	<!-- Run the UMLGraph doclet using set Javadoc executable. -->
+	<target name="run-umlgraph-with-set-javadoc" if="javadoc-set" depends="check-javadoc">
+		<javadoc
+			executable="${javadoc-executable-path}"
+			docletpath="${umlgraph-jar-path}" 
+			access="${javadoc-access-level}"
+			useexternalfile="yes"
+			additionalparam="${umlgraph-extra-param}"
+			failonerror="true">
+						
+			<doclet name="${umlgraph-doclet-name}">
+				<param name="${umlgraph-output-param-name}" value="${umlgraph-output-param-value}"/>
+			</doclet>
+
+			<fileset dir="${source-path}">
+				<include name="${scope}"/>
+			</fileset>
+		</javadoc>		
+	</target>
+	
+	
+	<!-- ================================= 
+		    target: java-to-dot
+		    run UmlGraph to convert .java files
+		    to a .dot file
+		    
+		    needs ${source-path}
+
+		 ================================= -->
+	
+	<target name="java-to-dot">
+		<!-- load setting for this run -->
+		<property file="runsettings.ini" />
+		
+		<!-- set the output parameters for umlgraph 
+			(depends on umlgraph version) -->
+		<condition property="umlgraph-output-param-name" value="-output">
+			<equals arg1="${umlgraph-doclet-name}" arg2="UmlGraph"/>
+		</condition>
+		<condition property="umlgraph-output-param-value" value="${statelocation}/graph/graph.dot">
+			<equals arg1="${umlgraph-doclet-name}" arg2="UmlGraph"/>
+		</condition>
+		<condition property="umlgraph-output-param-name" value="-d">
+			<equals arg1="${umlgraph-doclet-name}" arg2="gr.spinellis.umlgraph.doclet.UmlGraph"/>
+		</condition>
+		<condition property="umlgraph-output-param-value" value="${statelocation}/graph">
+			<equals arg1="${umlgraph-doclet-name}" arg2="gr.spinellis.umlgraph.doclet.UmlGraph"/>
+		</condition>
+		
+		<!-- run the umlgraph doclet -->
+		<antcall target="run-umlgraph-with-set-javadoc" />
+		<antcall target="run-umlgraph-with-default-javadoc" />
+	</target>
+		
+	<!-- ================================= 
+		    target: dot-to-graphics
+		          
+		 convert .dot to some graphics form
+		 using locally installed dot tool
+	     ================================= -->
+	
+	<target name="dot-to-graphics">
+		<!-- load setting for this run (the dot-file-name) -->
+		<property file="runsettings.ini" />
+		
+		<property environment="env"/>
+		<exec 
+			executable="dot" 
+			searchpath="true"
+			errorproperty="dot.error">
+			
+			<env key="PATH" path="${extra-lookup-path}:${env.PATH}"/>
+			<arg line="${dot-extra-param}"/>
+			<arg value="-T${graphics-format}"/>
+			<arg value="-ograph/${dot-file-name}.${graphics-format}"/>
+			<arg value="graph/${dot-file-name}.dot"/>
+		</exec>
+		<!-- remove the dot file -->
+		<delete file="graph/${dot-file-name}.dot" />
+		
+		<fail message="Error executing Graphviz 'dot' --- ${dot.error}">
+			<condition>
+				<length string="${dot.error}" when="greater" length="0"/>
+			</condition>
+		</fail>
+	</target>
+	
+	<!-- ================================= 
+		    target: pic-to-graphics
+			          
+	     convert .pic to some graphics form
+		 using locally installed pic2plot tool
+		 ================================= -->
+		
+	<target name="pic-to-graphics">
+		<property environment="env"/>
+		<property file="runsettings.ini" />
+		<copy file="${pic-macros-path}" tofile="sequence.pic"/>
+		<exec 
+			executable="pic2plot" 
+			searchpath="true" 
+			output="graph/graph.${graphics-format}"
+			errorproperty="pic.error">
+			
+			<env key="PATH" path="${extra-lookup-path}:${env.PATH}"/>
+			<arg line="${pic2plot-extra-param}"/>
+			<arg value="-T${graphics-format}"/>
+			<arg value="${pic-file-path}"/>
+		</exec>
+		<fail message="Error executing plotutils 'pic2plot' --- ${pic.error}">
+			<condition>
+				<length string="${pic.error}" when="greater" length="0"/>
+			</condition>
+		</fail>
+	</target>
+
+</project>

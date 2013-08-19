@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.lightuml"
+      label="LightUML"
+      version="1.2.7"
+      provider-name="Antti Hakala"
+      plugin="org.lightuml.core">
+   <install-handler/>
+
+   <description>
+      LightUML provides a lightweight option for generating class diagrams
+out of a Java project or package. It integrates external UmlGraph
+doclet (by Diomidis Spinellis) and GraphViz &apos;dot&apos; via Apache
+Ant. Read: you need to have GraphViz installed.
+   </description>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="LightUML" url="http://lightuml.sourceforge.net/updatesite"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ant.core"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.jdt.core"/>
+   </requires>
+
+   <plugin
+         id="org.lightuml.core"
+         download-size="0"
+         install-size="0"
+         version="1.2.7"/>
+
+   <plugin
+         id="org.lightuml.ui"
+         download-size="0"
+         install-size="0"
+         version="1.2.7"/>
+
+</feature>

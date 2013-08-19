@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.lightuml.ui"
+   class="org.lightuml.ui.LightUMLUIPlugin"
+   name="LightUML UI"
+   version="1.2.7"
+   provider-name="Antti Hakala">
+
+   <runtime>
+      <library name="ui.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.lightuml.core"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+   </requires>
+	
+   <extension
+   		point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            id="org.lightuml.ui.javaprojectcontribution">
+            <menu label="LightUML" path="additions" id="org.lightuml.ui.popupmenu" />
+          	<action
+               label="LightUML: Generate a Class Diagram"
+               class="org.lightuml.ui.actions.GenerateClassDiagram"
+               menubarPath="org.lightuml.ui.popupmenu"
+               enablesFor="1"
+               id="org.lightuml.ui.actions.GenerateClassDiagram">
+         	</action>
+      </objectContribution>
+      
+      <objectContribution
+            objectClass="org.eclipse.jdt.core.IPackageFragment"
+            id="org.lightuml.ui.javapackagecontribution">
+            <menu label="LightUML" path="additions" id="org.lightuml.ui.popupmenu" />
+          	<action
+               label="LightUML: Generate a Class Diagram"
+               class="org.lightuml.ui.actions.GenerateClassDiagram"
+               menubarPath="org.lightuml.ui.popupmenu"
+               enablesFor="1"
+               id="org.lightuml.ui.actions.GenerateClassDiagram">
+         	</action>
+      </objectContribution>
+      
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            nameFilter="*.pic"
+            id="org.lightuml.ui.picfilecontribution">
+            <menu label="LightUML" path="additions" id="org.lightuml.ui.popupmenu" />
+          	<action
+               label="LightUML: Generate a Sequence Diagram"
+               class="org.lightuml.ui.actions.GenerateSequenceDiagram"
+               menubarPath="org.lightuml.ui.popupmenu"
+               enablesFor="1"
+               id="org.lightuml.ui.actions.GenerateSequenceDiagram">
+         	</action>
+      </objectContribution>
+   </extension>
+   
+   <extension point="org.eclipse.ui.actionSets">
+ 		<actionSet id="org.lightuml.ui.actionSet" label="LightUML" visible="true">
+			<menu id="org.lightuml.ui.menu" label="LightUML" path="additions">
+				<separator name="group"/>
+			</menu>
+        	<action
+               label="Restore Default Settings"
+               class="org.lightuml.ui.actions.RestoreSettings"
+               menubarPath="org.lightuml.ui.menu/group"
+               id="org.lightuml.ui.actions.RestoreSettings">
+            </action>
+		</actionSet>
+	</extension>
+   
+   <extension point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.lightuml.ui.preferences.LightUMLPage"
+            name="LightUML"
+            id="org.lightuml.ui.preferences.LightUMLPage"
+            category="org.eclipse.jdt.ui.preferences.JavaBasePreferencePage" />
+      <page
+            class="org.lightuml.ui.preferences.UMLGraphPage"
+            name="UMLGraph"
+            id="org.lightuml.ui.preferences.UMLGraphPage"
+            category="org.lightuml.ui.preferences.LightUMLPage" />
+      <page
+            class="org.lightuml.ui.preferences.DotAndPic2PlotPage"
+            name="Dot and Pic2plot"
+            id="org.lightuml.ui.preferences.DotAndPic2PlotPage"
+            category="org.lightuml.ui.preferences.LightUMLPage" />
+      <page
+            class="org.lightuml.ui.preferences.ClassDiagramsPage"
+            name="Class Diagrams"
+            id="org.lightuml.ui.preferences.ClassDiagramsPage"
+            category="org.lightuml.ui.preferences.LightUMLPage" />
+   </extension>
+   
+   <extension point="org.eclipse.help.toc">
+   		<toc file="help/toc.xml" primary="true" />
+   </extension>
+   
+   <extension point="org.eclipse.ui.editors">
+   	<editor
+    	id="org.lightuml.ui.editor.piceditor"
+        name="Pic Editor"
+        icon="icons/pic.gif"
+        extensions="pic"
+        class="org.lightuml.ui.editor.PicEditor"
+        default="true" />
+   </extension>
+   <extension
+         point="org.eclipse.jdt.ui.javadocCompletionProcessor">
+         <javadocCompletionProcessor
+         	id="org.lightuml.ui.editor.LightUMLJavadocProcessor"
+         	name="LightUML Javadoc Processor"
+         	class="org.lightuml.ui.editor.LightUMLJavadocProcessor" />
+   </extension>
+   
+</plugin>

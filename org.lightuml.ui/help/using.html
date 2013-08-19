@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <title>Using LightUML</title>
+  </head>
+  
+  <body>
+    <h1>Using LightUML</h1>
+    <p>
+	  LightUML can be controlled via Eclipse UI in three places: the popup menu, 
+	  pulldown menu, and preferences dialog.
+	  These are described below.
+    </p>
+    <h2>Popup Menu</h2>
+    <p>
+    	You can find LightUML in a popup menu whenever you have selected a single Java project or
+    	package. This means, however, that the view you pop up the menu from has to know how to handle 
+    	Java elements, e.g. the Package Explorer in Java Perspective.
+    	Additionally, LightUML appears in popup menu when you have selected a .pic file.
+    </p>
+    <p>
+    	LightUML can add one of the following commands to popup menu 
+    	(depending on the selection):
+    </p>
+    <ul>
+    	<li>
+    		<b>LightUML: Generate a Class Diagram</b>. Generates a class diagram and adds
+    		it to the project. The format, name, and place of the generated class diagram
+    		are set in Preferences (see below).
+    	</li>
+    	<li>
+    		<b>LightUML: Generate a Sequence Diagram</b>. Generate a sequence diagram
+    		from a .pic file. Generated diagram is added to the project according to the
+    		preferences.
+    	</li>
+    </ul>
+    <h2>Pulldown Menu</h2>
+    <p>
+    	The actionset of LightUML should appear to the top pulldown menu (you can change the
+    	visibility from Window > Customize Perspective) after you have installed LightUML. 
+    	It contains one command: 
+    </p>
+    <ul>
+    	<li>
+    	    <b>Restore Default Settings</b>. Restores default preferences for LightUML (in case
+    	    something gets messed up).
+    	</li>
+    </ul>
+
+    <h2>Preferences</h2>
+    <p>
+    	You can find LightUML preference page from the top pulldown menu in 
+    	Window > Preferences > Java > LightUML. The preferences contained in the 
+    	main LightUML preference page are:
+    </p>
+    <ul>
+    	<li>
+    		<b>Graph file name</b>.
+    		The name of the class diagram file.
+    	</li>
+    	<li>
+    		<b>Output directory (relative to project root, optional)</b>.
+    		Directory (or folder) where the class diagram gets placed into.
+    		This directory is relative to the project root and gets created if it 
+    		doesn't exist. Optional.
+    	</li>
+		<li>
+    		<b>Use package or project name as the graph file name</b> 
+    		Uncheck this if you don't want to use the package or project name as the graph
+    		file name.
+    	</li>
+    	<li>
+    		<b>Recurse into subpackages</b>. If this is checked, a class diagram for
+    		a package com.foo.core would include classes in com.foo.core.jobs also.
+    	</li>
+    	<li>
+    		<b>Javadoc executable path (optional)</b>. You can explicitly give
+    		the javadoc executable used to run UmlGraph-doclet.
+    	</li>
+    </ul>
+    <p>
+    	The "Class Diagrams" subpage contains following preferences:
+    </p>
+    <ul>
+		<li>
+			<b>Parameters</b>. The parameters passed to UMLGraph when generating
+			class diagrams.
+    	</li>
+    	<li>
+    		<b>Access level</b>. This defines the access level, e.g. with public, only public
+    		methods and classes are included in the class diagram.
+    	</li>
+		<li>
+    		<b>UMLGraph extra commandline parameters (optional)</b>.
+    		Extra commandline parameters for UMLGraph doclet. These (and all parameters defined in this page) 
+    		affect all the Java files
+    		globally, file-specific options can be given to Java files also via Javadoc comments.
+    		See UmlGraph <a href="http://www.spinellis.gr/sw/umlgraph/doc/index.html">documentation</a>
+    		for instructions.
+    	</li>
+    	<li>
+    		<b>Colors</b>. With these color selectors you can select the colors used in class diagrams.
+    	</li>
+    </ul>
+    <p>
+    	The "Dot and Pic2plot" subpage contains following preferences:
+    </p>
+    <ul>
+    	<li>
+    		<b>dot extra commandline parameters</b>.
+    		Extra command line parameters for the dot executable.
+    	</li>
+    	<li>
+    		<b>pic2plot extra commandline parameters</b>.
+    		Extra command line parameters for the pic2plot executable.
+    	</li>
+    	<li>
+    		<b>Extra lookup path(s)</b>.
+    		Extra lookup path(s) for the above executables.
+    	</li>
+    	<li>
+    		<b>Graphics format</b>.
+    		The graphics format of the class diagram file. Has to be supported by the local
+    		install of dot or pic2plot executable.
+    	</li>
+    </ul>
+    <p>
+    	The UMLGraph subpage contains following preferences:
+    </p>
+    <ul>
+    	<li>
+    		<b>UmlGraph.jar path</b>.
+    		This path should point to the location of UMLGraph doclet. An absolute
+    		path should be given, e.g. /foo/bar/UmlGraph.jar 
+    	</li>
+    	<li>
+    		<b>sequence.pic path</b>. Path to the pic-macros which are part of the UMLGraph.
+    		Used when generating sequence diagrams.
+    	</li>
+    	<li>
+    		<b>UMLGraph version</b>. Match the version with the version of UmlGraph.jar used.
+    		The doclet name differs between different versions.
+    	</li>
+    </ul>
+    
+  </body>
+</html>
