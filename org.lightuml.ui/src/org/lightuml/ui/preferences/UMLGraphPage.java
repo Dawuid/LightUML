@@ -44,7 +44,7 @@ public class UMLGraphPage extends LightUMLPreferencePage {
         addField(new FileFieldEditor(P_PIC_MACROS_PATH, "sequence.pic path:",
                 true, getFieldEditorParent()));
         addField(new RadioGroupFieldEditor(P_UMLGRAPH_DOCLET_NAME,
-                "UMLGraph version. LightUML supports two versions of UMLGraph.", 
+                "UMLGraph version. LightUML supports three versions of UMLGraph.", 
                 1, VERSION_DOCLET_NAME, getFieldEditorParent()));
     }
     

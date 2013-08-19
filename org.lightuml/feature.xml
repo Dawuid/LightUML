@@ -2,7 +2,7 @@
 <feature
       id="org.lightuml"
       label="LightUML"
-      version="1.2.7"
+      version="1.2.7.2"
       provider-name="Antti Hakala"
       plugin="org.lightuml.core">
    <install-handler/>
@@ -28,18 +28,21 @@ Ant. Read: you need to have GraphViz installed.
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.jdt.ui"/>
    </requires>
 
    <plugin
          id="org.lightuml.core"
          download-size="0"
          install-size="0"
-         version="1.2.7"/>
+         version="1.2.7.2"/>
 
    <plugin
          id="org.lightuml.ui"
          download-size="0"
          install-size="0"
-         version="1.2.7"/>
+         version="1.2.7.2"/>
 
 </feature>

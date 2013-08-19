@@ -3,7 +3,7 @@
 <plugin
    id="org.lightuml.core"
    name="LightUML"
-   version="1.2.7"
+   version="1.2.7.2"
    class="org.lightuml.core.LightUMLCorePlugin"
    
    provider-name="Antti Hakala">

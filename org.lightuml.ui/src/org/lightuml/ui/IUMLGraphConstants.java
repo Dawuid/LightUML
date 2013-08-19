@@ -25,7 +25,9 @@ public interface IUMLGraphConstants {
             };
 
     public String[][] VERSION_DOCLET_NAME = {
-            { "UMLGraph version 4.4 (and possibly newer) - works with java 1.5",
+            { "UMLGraph version 5.6 (and possibly newer) - works with java 1.6",
+            		"org.umlgraph.doclet.UmlGraph" },
+            { "UMLGraph version 4.4 - works with java 1.5",
                     "gr.spinellis.umlgraph.doclet.UmlGraph" },
             { "UMLGraph version 2.10 - works with java 1.4", "UmlGraph" }
 

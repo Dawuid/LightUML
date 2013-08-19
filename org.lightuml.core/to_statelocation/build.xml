@@ -45,7 +45,7 @@
 		<javadoc
 			docletpath="${umlgraph-jar-path}" 
 			access="${javadoc-access-level}"
-			useexternalfile="yes"
+			useexternalfile="no"
 			additionalparam="${umlgraph-extra-param}"
 			failonerror="true">
 					
@@ -65,7 +65,7 @@
 			executable="${javadoc-executable-path}"
 			docletpath="${umlgraph-jar-path}" 
 			access="${javadoc-access-level}"
-			useexternalfile="yes"
+			useexternalfile="no"
 			additionalparam="${umlgraph-extra-param}"
 			failonerror="true">
 						
@@ -102,10 +102,16 @@
 			<equals arg1="${umlgraph-doclet-name}" arg2="UmlGraph"/>
 		</condition>
 		<condition property="umlgraph-output-param-name" value="-d">
-			<equals arg1="${umlgraph-doclet-name}" arg2="gr.spinellis.umlgraph.doclet.UmlGraph"/>
+			<or>
+				<equals arg1="${umlgraph-doclet-name}" arg2="gr.spinellis.umlgraph.doclet.UmlGraph"/>
+				<equals arg1="${umlgraph-doclet-name}" arg2="org.umlgraph.doclet.UmlGraph"/>
+			</or>
 		</condition>
 		<condition property="umlgraph-output-param-value" value="${statelocation}/graph">
-			<equals arg1="${umlgraph-doclet-name}" arg2="gr.spinellis.umlgraph.doclet.UmlGraph"/>
+			<or>
+				<equals arg1="${umlgraph-doclet-name}" arg2="gr.spinellis.umlgraph.doclet.UmlGraph"/>
+				<equals arg1="${umlgraph-doclet-name}" arg2="org.umlgraph.doclet.UmlGraph"/>
+			</or>
 		</condition>
 		
 		<!-- run the umlgraph doclet -->
