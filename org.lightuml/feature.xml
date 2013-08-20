@@ -19,7 +19,7 @@ Ant. Read: you need to have GraphViz installed.
    </license>
 
    <url>
-      <update label="LightUML" url="http://dawuid.github.io/lightuml/updatesite"/>
+      <update label="LightUML" url="http://dawuid.github.io/updatesite"/>
    </url>
 
    <requires>
